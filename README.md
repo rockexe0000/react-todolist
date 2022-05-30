@@ -24,6 +24,8 @@ return [Summary](#summary)
   - [Setup](#setup)
     - [install nodejs](#install-nodejs)
     - [version verification](#version-verification)
+    - [install json-server](#install-json-server)
+  - [Reference](#reference)
 
 <!-- /TOC -->
 
@@ -114,8 +116,8 @@ return [Summary](#summary)
 ### install nodejs
 
 ```shell
-nvm install 10.14.1
-nvm use 10.14.1
+nvm install 16.15.0
+nvm use 16.15.0
 ```
 
 > nvm use 版本報錯，出現exit status 1後面跟一堆亂碼<br>
@@ -130,9 +132,20 @@ nvm use 10.14.1
 1.1.8
 
 # node -v
-v18.2.0
+v16.15.0
 
 
+```
+
+
+
+### install json-server
+```
+# 首先全域安裝 json-server
+npm install -g json-server
+
+# 開啟 json server，並且指定使用哪個檔案
+json-server db.json
 ```
 
 
@@ -149,17 +162,26 @@ npm start
 
 
 
+出現 `'React' must be in scope when using JSX  react/react-in-jsx-scope` 錯誤
+最上面加入下面這行就解決了
+```
+import React from 'react';
+```
 
 
 
 
 
 
+## Reference
+
+React 官網
+<https://zh-hant.reactjs.org/>
 
 
+【前端速成】React 快速入門｜Tiktok工程師帶你入門前端｜布魯斯前端
+<https://github.com/scps960740/React-crash-course-2021-bruceFE>
 
 
-
-
-
-
+用 JSON Server 模擬 RESTful API
+<https://medium.com/@debbyji/%E7%94%A8-json-server-%E6%A8%A1%E6%93%AC-restful-api-f07abda3927c>
