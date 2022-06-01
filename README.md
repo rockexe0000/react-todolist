@@ -25,6 +25,29 @@ return [Summary](#summary)
     - [install nodejs](#install-nodejs)
     - [version verification](#version-verification)
     - [install json-server](#install-json-server)
+    - [故障排除 - Trouble Shooting](#故障排除---trouble-shooting)
+  - [AWS](#aws)
+    - [Amazon API Gateway](#amazon-api-gateway)
+    - [Step 1: Create a DynamoDB table](#step-1-create-a-dynamodb-table)
+      - [1. Open the DynamoDB console at <https://console.aws.amazon.com/dynamodb/>](#1-open-the-dynamodb-console-at-httpsconsoleawsamazoncomdynamodb)
+      - [2. Choose `Create table`](#2-choose-create-table)
+      - [3. For `Table name`, enter `todolist-items`, For `Partition key`, enter `id`](#3-for-table-name-enter-todolist-items-for-partition-key-enter-id)
+      - [4. add Tag, Choose `Create`](#4-add-tag-choose-create)
+    - [Step 2: Create a Lambda function](#step-2-create-a-lambda-function)
+      - [1. Sign in to the Lambda console at https://console.aws.amazon.com/lambda](#1-sign-in-to-the-lambda-console-at-httpsconsoleawsamazoncomlambda)
+      - [2. Choose Create function](#2-choose-create-function)
+      - [3. For `Function name`, enter `todolist-function`.](#3-for-function-name-enter-todolist-function)
+      - [4. Under `Permissions` choose `Change default execution role`.](#4-under-permissions-choose-change-default-execution-role)
+      - [5. Select `Create a new role from AWS policy templates`.](#5-select-create-a-new-role-from-aws-policy-templates)
+      - [6. For Role name, enter `todolist-role`.](#6-for-role-name-enter-todolist-role)
+      - [7. For `Policy templates`, choose `Simple microservice permissions`. This policy grants the Lambda function permission to interact with DynamoDB.](#7-for-policy-templates-choose-simple-microservice-permissions-this-policy-grants-the-lambda-function-permission-to-interact-with-dynamodb)
+      - [8. Choose `Create function`](#8-choose-create-function)
+      - [9. Open `index.js` in the console's code editor, and replace its contents with the following code. Choose `Deploy` to update your function](#9-open-indexjs-in-the-consoles-code-editor-and-replace-its-contents-with-the-following-code-choose-deploy-to-update-your-function)
+    - [Step 3: Create an HTTP API](#step-3-create-an-http-api)
+    - [Step 4: Create routes](#step-4-create-routes)
+    - [Step 5: Create an integration](#step-5-create-an-integration)
+    - [Step 6: Attach your integration to routes](#step-6-attach-your-integration-to-routes)
+    - [Step 7: Test your API](#step-7-test-your-api)
   - [Reference](#reference)
 
 <!-- /TOC -->
@@ -160,7 +183,7 @@ npm start
 ```
 
 
-
+### 故障排除 - Trouble Shooting
 
 出現 `'React' must be in scope when using JSX  react/react-in-jsx-scope` 錯誤
 最上面加入下面這行就解決了
@@ -171,9 +194,188 @@ import React from 'react';
 
 
 
+## AWS
+return [Summary](#summary)
+
+![](assets/fig/ddb-crud.png)
+
+
+### Amazon API Gateway
+
+<https://docs.aws.amazon.com/apigateway/latest/developerguide/getting-started.html>
+<https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-dynamo-db.html>
+
+
+
+### Step 1: Create a DynamoDB table
+
+#### 1. Open the DynamoDB console at <https://console.aws.amazon.com/dynamodb/>
+
+
+| Name | Value |
+| - | - |
+| Table name | todolist-items |
+| Partition key | id |
+| Tag name | Name |
+| Tag value | react-todolist_todolist-items |
+
+#### 2. Choose `Create table`
+
+![](assets/fig/20220601115017.png)
+
+#### 3. For `Table name`, enter `todolist-items`, For `Partition key`, enter `id`
+
+![](assets/fig/20220601115400.png)
+
+#### 4. add Tag, Choose `Create`
+
+![](assets/fig/20220601115759.png)
+
+![](assets/fig/20220601115904.png)
+
+-----
+
+### Step 2: Create a Lambda function
+
+
+#### 1. Sign in to the Lambda console at https://console.aws.amazon.com/lambda
+
+| Name | Value |
+| - | - |
+| Function name | todolist-function |
+| Role name | todolist-role |
+| Policy templates | Simple microservice permissions |
+
+
+#### 2. Choose Create function
+
+![](assets/fig/20220601124439.png)
+
+
+#### 3. For `Function name`, enter `todolist-function`.
+#### 4. Under `Permissions` choose `Change default execution role`.
+#### 5. Select `Create a new role from AWS policy templates`.
+#### 6. For Role name, enter `todolist-role`.
+#### 7. For `Policy templates`, choose `Simple microservice permissions`. This policy grants the Lambda function permission to interact with DynamoDB.
+#### 8. Choose `Create function`
+![](assets/fig/20220601130010.png)
+
+![](assets/fig/20220601130135.png)
+
+![](assets/fig/20220601130242.png)
+
+
+#### 9. Open `index.js` in the console's code editor, and replace its contents with the following code. Choose `Deploy` to update your function
+
+```
+const AWS = require("aws-sdk");
+
+const dynamo = new AWS.DynamoDB.DocumentClient();
+
+exports.handler = async (event, context) => {
+  let body;
+  let statusCode = 200;
+  const headers = {
+    "Content-Type": "application/json"
+  };
+
+  try {
+    switch (event.routeKey) {
+      case "DELETE /items/{id}":
+        await dynamo
+          .delete({
+            TableName: "todolist-items",
+            Key: {
+              id: event.pathParameters.id
+            }
+          })
+          .promise();
+        body = `Deleted item ${event.pathParameters.id}`;
+        break;
+      case "GET /items/{id}":
+        body = await dynamo
+          .get({
+            TableName: "todolist-items",
+            Key: {
+              id: event.pathParameters.id
+            }
+          })
+          .promise();
+        break;
+      case "GET /items":
+        body = await dynamo.scan({ TableName: "todolist-items" }).promise();
+        break;
+      case "PUT /items":
+        let requestJSON = JSON.parse(event.body);
+        await dynamo
+          .put({
+            TableName: "todolist-items",
+            Item: {
+              id: requestJSON.id,
+              price: requestJSON.price,
+              name: requestJSON.name
+            }
+          })
+          .promise();
+        body = `Put item ${requestJSON.id}`;
+        break;
+      default:
+        throw new Error(`Unsupported route: "${event.routeKey}"`);
+    }
+  } catch (err) {
+    statusCode = 400;
+    body = err.message;
+  } finally {
+    body = JSON.stringify(body);
+  }
+
+  return {
+    statusCode,
+    body,
+    headers
+  };
+};
+```
+
+![](assets/fig/20220601131340.png)
+
+![](assets/fig/20220601131420.png)
+
+-----
+
+### Step 3: Create an HTTP API
+
+
+
+
+
+
+
+
+
+
+### Step 4: Create routes
+
+
+### Step 5: Create an integration
+
+
+### Step 6: Attach your integration to routes
+
+
+### Step 7: Test your API
+
+
+
+
+
+
+
+
 
 
 ## Reference
+return [Summary](#summary)
 
 React 官網
 <https://zh-hant.reactjs.org/>
