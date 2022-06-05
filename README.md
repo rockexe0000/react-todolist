@@ -8,19 +8,19 @@ return [Summary](#summary)
 
 - [react-todolist](#react-todolist)
   - [Summary](#summary)
-- [Getting Started with Create React App](#getting-started-with-create-react-app)
-  - [Available Scripts](#available-scripts)
-    - [`npm start`](#npm-start)
-    - [`npm test`](#npm-test)
-    - [`npm run build`](#npm-run-build)
-    - [`npm run eject`](#npm-run-eject)
-  - [Learn More](#learn-more)
-    - [Code Splitting](#code-splitting)
-    - [Analyzing the Bundle Size](#analyzing-the-bundle-size)
-    - [Making a Progressive Web App](#making-a-progressive-web-app)
-    - [Advanced Configuration](#advanced-configuration)
-    - [Deployment](#deployment)
-    - [`npm run build` fails to minify](#npm-run-build-fails-to-minify)
+  - [Getting Started with Create React App](#getting-started-with-create-react-app)
+    - [Available Scripts](#available-scripts)
+      - [`npm start`](#npm-start)
+      - [`npm test`](#npm-test)
+      - [`npm run build`](#npm-run-build)
+      - [`npm run eject`](#npm-run-eject)
+    - [Learn More](#learn-more)
+      - [Code Splitting](#code-splitting)
+      - [Analyzing the Bundle Size](#analyzing-the-bundle-size)
+      - [Making a Progressive Web App](#making-a-progressive-web-app)
+      - [Advanced Configuration](#advanced-configuration)
+      - [Deployment](#deployment)
+      - [`npm run build` fails to minify](#npm-run-build-fails-to-minify)
   - [Setup](#setup)
     - [install nodejs](#install-nodejs)
     - [version verification](#version-verification)
@@ -44,7 +44,22 @@ return [Summary](#summary)
       - [8. Choose `Create function`](#8-choose-create-function)
       - [9. Open `index.js` in the console's code editor, and replace its contents with the following code. Choose `Deploy` to update your function](#9-open-indexjs-in-the-consoles-code-editor-and-replace-its-contents-with-the-following-code-choose-deploy-to-update-your-function)
     - [Step 3: Create an HTTP API](#step-3-create-an-http-api)
+      - [1. Sign in to the API Gateway console at <https://console.aws.amazon.com/apigateway>.](#1-sign-in-to-the-api-gateway-console-at-httpsconsoleawsamazoncomapigateway)
+      - [2. Choose `Create API`, and then for `HTTP API`, choose `Build`.](#2-choose-create-api-and-then-for-http-api-choose-build)
+      - [3. For API name, enter `todolist-api`.](#3-for-api-name-enter-todolist-api)
+      - [4. Choose `Next`.](#4-choose-next)
+      - [5. For `Configure routes`, choose `Next` to skip route creation. You create routes later.](#5-for-configure-routes-choose-next-to-skip-route-creation-you-create-routes-later)
+      - [6. Review the stage that API Gateway creates for you, and then choose `Next`.](#6-review-the-stage-that-api-gateway-creates-for-you-and-then-choose-next)
+      - [7. Choose `Create`.](#7-choose-create)
     - [Step 4: Create routes](#step-4-create-routes)
+      - [1. Sign in to the API Gateway console at <https://console.aws.amazon.com/apigateway>.](#1-sign-in-to-the-api-gateway-console-at-httpsconsoleawsamazoncomapigateway-1)
+      - [2. Choose your API.](#2-choose-your-api)
+      - [3. Choose `Routes`.](#3-choose-routes)
+      - [4. Choose `Create`.](#4-choose-create)
+      - [5. For `Method`, choose `GET`.](#5-for-method-choose-get)
+      - [6. For the path, enter `/items/{id}`. The `{id}` at the end of the path is a path parameter that API Gateway retrieves from the request path when a client makes a request.](#6-for-the-path-enter-itemsid-the-id-at-the-end-of-the-path-is-a-path-parameter-that-api-gateway-retrieves-from-the-request-path-when-a-client-makes-a-request)
+      - [7. Choose `Create`.](#7-choose-create-1)
+      - [8. Repeat steps 4-7 for `GET /items`, `DELETE /items/{id}`, and `PUT /items`.](#8-repeat-steps-4-7-for-get-items-delete-itemsid-and-put-items)
     - [Step 5: Create an integration](#step-5-create-an-integration)
     - [Step 6: Attach your integration to routes](#step-6-attach-your-integration-to-routes)
     - [Step 7: Test your API](#step-7-test-your-api)
@@ -55,15 +70,15 @@ return [Summary](#summary)
 -----
 
 
-# Getting Started with Create React App
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+### Available Scripts
 
 In the project directory, you can run:
 
-### `npm start`
+#### `npm start`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
@@ -71,12 +86,12 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
-### `npm test`
+#### `npm test`
 
 Launches the test runner in the interactive watch mode.\
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+#### `npm run build`
 
 Builds the app for production to the `build` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
@@ -86,7 +101,7 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+#### `npm run eject`
 
 **Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
@@ -96,33 +111,33 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
+### Learn More
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+#### Code Splitting
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
+#### Analyzing the Bundle Size
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
+#### Making a Progressive Web App
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 
-### Advanced Configuration
+#### Advanced Configuration
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
-### Deployment
+#### Deployment
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
-### `npm run build` fails to minify
+#### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 
@@ -346,22 +361,76 @@ exports.handler = async (event, context) => {
 ### Step 3: Create an HTTP API
 
 
+#### 1. Sign in to the API Gateway console at <https://console.aws.amazon.com/apigateway>.
+
+#### 2. Choose `Create API`, and then for `HTTP API`, choose `Build`.
+
+![](20220602112913.png)
+
+#### 3. For API name, enter `todolist-api`.
+
+#### 4. Choose `Next`.
+
+![](20220602113108.png)
+
+#### 5. For `Configure routes`, choose `Next` to skip route creation. You create routes later.
+
+![](20220602113214.png)
+
+#### 6. Review the stage that API Gateway creates for you, and then choose `Next`.
+
+![](20220602113354.png)
+
+#### 7. Choose `Create`.
+
+![](20220602113501.png)
+
+![](20220602113545.png)
 
 
 
-
-
-
-
+-----
 
 ### Step 4: Create routes
 
+> Routes are a way to send incoming API requests to backend resources. Routes consist of two parts: an HTTP method and a resource path, for example, `GET /items`. For this example API, we create four routes:
+
+- `GET /items/{id}`
+- `GET /items`
+- `PUT /items`
+- `DELETE /items/{id}`
+
+
+#### 1. Sign in to the API Gateway console at <https://console.aws.amazon.com/apigateway>.
+
+#### 2. Choose your API.
+
+#### 3. Choose `Routes`.
+
+#### 4. Choose `Create`.
+
+#### 5. For `Method`, choose `GET`.
+
+#### 6. For the path, enter `/items/{id}`. The `{id}` at the end of the path is a path parameter that API Gateway retrieves from the request path when a client makes a request.
+
+#### 7. Choose `Create`.
+
+#### 8. Repeat steps 4-7 for `GET /items`, `DELETE /items/{id}`, and `PUT /items`.
+
+
+
+
+
+-----
 
 ### Step 5: Create an integration
 
+-----
 
 ### Step 6: Attach your integration to routes
 
+
+-----
 
 ### Step 7: Test your API
 
