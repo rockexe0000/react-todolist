@@ -42,8 +42,10 @@ exports.handler = async (event, context) => {
             TableName: "todolist-items",
             Item: {
               id: requestJSON.id,
-              price: requestJSON.price,
-              name: requestJSON.name
+              note: requestJSON.note,
+              date: requestJSON.date,
+              time: requestJSON.time,
+              data: requestJSON.data
             }
           })
           .promise();

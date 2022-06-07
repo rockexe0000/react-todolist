@@ -8,8 +8,15 @@ import List from "./components/List";
 import "./index.css";
 
 async function fetchData(setData) {
-  const res = await fetch(API_GET_DATA)
-  const { data } = await res.json()
+  const res = await fetch(API_GET_DATA+"/1")
+  
+  
+  const data_tmp = await res.json()
+  ///console.log('data_tmp',data_tmp.Item);
+
+
+  const { data } = data_tmp.Item
+  //const { data } = await res.json()
   setData(data)
 }
 
@@ -19,7 +26,10 @@ async function fetchSetData(data) {
     headers: {
       'Content-type': 'application/json'
     },
-    body: JSON.stringify({ data })
+    body: JSON.stringify({
+      "data": data,
+      "id": "1"
+    })
   })
 }
 
