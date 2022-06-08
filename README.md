@@ -24,7 +24,8 @@ return [Summary](#summary)
   - [Setup](#setup)
     - [install nodejs](#install-nodejs)
     - [version verification](#version-verification)
-    - [install json-server](#install-json-server)
+    - [Install json-server](#install-json-server)
+    - [Docker](#docker)
     - [Setup 故障排除 - Trouble Shooting](#setup-故障排除---trouble-shooting)
   - [AWS](#aws)
     - [Amazon API Gateway](#amazon-api-gateway)
@@ -150,7 +151,7 @@ v16.15.0
 
 
 
-### install json-server
+### Install json-server
 ```
 # 首先全域安裝 json-server
 npm install -g json-server
@@ -168,6 +169,19 @@ Node >= 14.0.0 and npm >= 5.6
 npx create-react-app react-todolist
 cd react-todolist
 npm start
+```
+
+### Docker
+return [Summary](#summary)
+
+build image
+```
+docker build -t react-todolist:dev .
+```
+
+run container
+```
+docker run -it --rm -v ${PWD}:/app -v /app/node_modules -p 3001:3000 -e CHOKIDAR_USEPOLLING=true react-todolist:dev
 ```
 
 
@@ -560,3 +574,10 @@ React 官網
 
 用 JSON Server 模擬 RESTful API
 <https://medium.com/@debbyji/%E7%94%A8-json-server-%E6%A8%A1%E6%93%AC-restful-api-f07abda3927c>
+
+
+Working with HTTP APIs CORS
+<https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-cors.html>
+
+Dockerizing a React App
+<https://mherman.org/blog/dockerizing-a-react-app/>
