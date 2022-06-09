@@ -184,6 +184,12 @@ run container
 docker run -it --rm -v ${PWD}:/app -v /app/node_modules -p 3001:3000 -e CHOKIDAR_USEPOLLING=true react-todolist:dev
 ```
 
+run docker-compose
+
+```
+docker-compose up -d --build
+```
+
 
 ### Setup 故障排除 - Trouble Shooting
 return [Summary](#summary)
@@ -547,6 +553,9 @@ return [Summary](#summary)
 Access to fetch at 'https://ukae5ppoi2.execute-api.ap-northeast-1.amazonaws.com/items/1' from origin 'http://localhost:3001' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. If an opaque response serves your needs, set the request's mode to 'no-cors' to fetch the resource with CORS disabled.
 ```
 
+如何對 API Gateway API 的 CORS 錯誤進行疑難排解？
+<https://aws.amazon.com/tw/premiumsupport/knowledge-center/api-gateway-cors-errors/>
+
 Working with HTTP APIs CORS
 <https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-cors.html>
 
@@ -575,6 +584,8 @@ React 官網
 用 JSON Server 模擬 RESTful API
 <https://medium.com/@debbyji/%E7%94%A8-json-server-%E6%A8%A1%E6%93%AC-restful-api-f07abda3927c>
 
+如何對 API Gateway API 的 CORS 錯誤進行疑難排解？
+<https://aws.amazon.com/tw/premiumsupport/knowledge-center/api-gateway-cors-errors/>
 
 Working with HTTP APIs CORS
 <https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-cors.html>
