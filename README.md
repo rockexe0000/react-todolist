@@ -26,6 +26,7 @@ return [Summary](#summary)
     - [version verification](#version-verification)
     - [Install json-server](#install-json-server)
     - [Docker](#docker)
+    - [Docker Prod](#docker-prod)
     - [Setup 故障排除 - Trouble Shooting](#setup-故障排除---trouble-shooting)
   - [AWS](#aws)
     - [Amazon API Gateway](#amazon-api-gateway)
@@ -188,6 +189,34 @@ run docker-compose
 
 ```
 docker-compose up -d --build
+```
+
+### Docker Prod
+return [Summary](#summary)
+
+prod rebuild
+```
+npm rebuild
+```
+
+prod build image
+```
+docker build -f Dockerfile.prod -t sample:prod .
+```
+
+prod run container
+```
+docker run -it --rm -p 3001:80 sample:prod
+```
+
+prod run docker-compose
+```
+docker-compose -f docker-compose.prod.yml up -d --build
+```
+
+package.json
+```
+  "homepage": "https://zeroxzack.xyz/react-todolist",
 ```
 
 
@@ -592,3 +621,9 @@ Working with HTTP APIs CORS
 
 Dockerizing a React App
 <https://mherman.org/blog/dockerizing-a-react-app/>
+
+在 docker-compose 上使用 nginx 代理反應應用程序
+<https://stackoverflow.com/questions/59973882/proxying-react-app-using-nginx-on-docker-compose>
+
+如何使用 S3 和 CloudFront 部署 React App（2021 年更新）
+<https://aws.plainenglish.io/how-to-deploy-react-app-with-s3-and-cloudfront-6d170172cd58>

@@ -1,0 +1,73 @@
+version: '3.7'
+
+services:
+
+
+#  sample-prod:
+#    container_name: sample-prod
+#    build:
+#      context: .
+#      dockerfile: Dockerfile.prod
+#    ports:
+#      - '3001:80'
+
+
+
+
+#  sample-prod:
+#    image: react-todolist_sample-prod
+#    ports:
+#      - '3001:80'
+
+
+#  sample:
+#    container_name: sample
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#    volumes:
+#      - '.:/app'
+#      - '/app/node_modules'
+#    ports:
+#      - 3001:3000
+#    environment:
+#      - CHOKIDAR_USEPOLLING=true
+
+
+
+
+
+#  sample:
+#    image: react-todolist_sample
+##    volumes:
+##      - '.:/app'
+##      - '/app/node_modules'
+#    ports:
+#      - 3001:3000
+##    environment:
+##      - CHOKIDAR_USEPOLLING=true
+
+
+
+
+
+
+#  nginx:
+#    image: nginx:1.15-alpine
+#    ports:
+#      - "80:80"
+#      - "443:443"
+#    volumes:
+#      - ./data/nginx:/etc/nginx/conf.d
+#      - ./data/certbot/conf:/etc/letsencrypt
+#      - ./data/certbot/www:/var/www/certbot
+#    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+#  certbot:
+#    image: certbot/certbot
+#    volumes:
+#      - ./data/certbot/conf:/etc/letsencrypt
+#      - ./data/certbot/www:/var/www/certbot
+#    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+#        #networks:
+#        #  wordpress_network:
+#        #    driver: bridge
